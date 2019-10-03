@@ -23,6 +23,9 @@ export class AppContainerComponent implements OnInit {
     idle: {
       SEARCH: 'loading'
     },
+    refreshing_view: {
+      FINISHED: 'idle',
+    },
     loading: {
       RECEIVE_SUCCESS_RESULT: 'list_populated',
       RECEIVE_FAILURE_RESULT: 'toaster_shown',
@@ -45,6 +48,7 @@ export class AppContainerComponent implements OnInit {
 
   ngOnInit(): void {
     this.currentState = 'start';
+    this.refreshView();
     this.transition('WAIT');
   }
 
@@ -52,6 +56,7 @@ export class AppContainerComponent implements OnInit {
     const nextState = this.STATES[this.currentState][action];
 
     if (nextState) {
+      this.currentState = nextState;
       this.command(nextState, data);
     }
   }
@@ -59,16 +64,17 @@ export class AppContainerComponent implements OnInit {
   private command(nextState: string, data?: any) {
     switch (nextState) {
       case 'idle':
-        this.refreshView();
         break;
-      case 'SEARCH':
+      case 'loading':
         this.subscribeToSearchResult(data);
         break;
       case 'list_populated':
+        this.refreshView();
         this.populateList(data);
         this.transition('FINISHED');
         break;
       case 'toaster_shown':
+        this.refreshView();
         this.showToaster(data);
         this.transition('FINISHED');
         break;

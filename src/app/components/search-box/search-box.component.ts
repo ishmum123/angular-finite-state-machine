@@ -4,7 +4,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
   selector: 'app-search-box',
   template: `
       <input type="text" placeholder="Search for Course" #courseName>
-      <button type="button" (click)="searchTextEmitter.emit(courseName.value)">Submit</button>
+      <button type="button" (click)="courseName.value && searchTextEmitter.emit(courseName.value)">Submit</button>
   `
 })
 export class SearchBoxComponent {
