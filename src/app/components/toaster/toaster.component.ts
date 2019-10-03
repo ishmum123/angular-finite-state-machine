@@ -1,15 +1,14 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-toaster',
-  templateUrl: './toaster.component.html',
-  styleUrls: ['./toaster.component.css']
+  template: `
+      <p>{{message}}</p>
+  `
 })
-export class ToasterComponent implements OnInit {
+export class ToasterComponent {
 
-  constructor() { }
-
-  ngOnInit() {
-  }
+  @Input()
+  message: string;
 
 }

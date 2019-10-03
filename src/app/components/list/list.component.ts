@@ -1,15 +1,21 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-list',
-  templateUrl: './list.component.html',
-  styleUrls: ['./list.component.css']
+  template: `
+      <ul>
+          <li *ngFor="let elem of data">
+              <p *ngFor="let f of fields">{{elem[f]}}&nbsp;&nbsp;</p>
+          </li>
+      </ul>
+  `
 })
-export class ListComponent implements OnInit {
+export class ListComponent {
 
-  constructor() { }
+  @Input()
+  data: any[];
 
-  ngOnInit() {
-  }
+  @Input()
+  fields: string[];
 
 }
